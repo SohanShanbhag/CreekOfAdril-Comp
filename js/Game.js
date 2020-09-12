@@ -81,6 +81,10 @@ class Game{
                 player.distance += 20;
                 player.update();
             }
+            if(keyIsDown(UP_ARROW)){
+                player.velocityY = -10;
+            }
+            player.velocityY = player.velocityY + 0.8;
         }
 
         drawSprites();

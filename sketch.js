@@ -46,7 +46,7 @@ function draw(){
   startPlayer1.display();
   startPlayer2.display();
 
-  showMobileControls(true, true, true, false); 
+  //showMobileControls(true, true, true, false); 
 
   if(playerCount === 2){
     game.update(1);
