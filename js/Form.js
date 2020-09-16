@@ -39,6 +39,7 @@ class Form{
         this.input.style("width", "310px");
         this.input.style("height", "30px")
         this.input.style("text-align", "center");
+        this.input;
 
         this.startButton.hide();
         this.tellUser.hide();
