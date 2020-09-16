@@ -28,8 +28,7 @@ class Game{
             form = new Form();
             form.display();
         }
-
-        console.log(introMusic);
+        
 
         player1 = createSprite(50, displayHeight - 200);
         player2 = createSprite(50, displayHeight - 200);
@@ -38,9 +37,6 @@ class Game{
 
         invisi = createSprite(displayWidth/2 + 7300, displayHeight - 140, 16000, 100);
         invisi.visible = false;
-
-        player1.collide(invisi);
-        player2.collide(invisi);
 
         players = [player1, player2];
 
@@ -81,6 +77,9 @@ class Game{
         Player.getPlayerInfo();
         player.getPlayersAtEnd();
 
+        player1.collide(invisi);
+        player2.collide(invisi);
+
         startPlayer1.visible = false;
         startPlayer2.visible = false;
         startMonster.visible = false;
@@ -93,7 +92,6 @@ class Game{
             var y;
 
             background("cyan");
-            console.log();
 
             for(var plr in allPlayers){
                 index ++ ;
@@ -110,8 +108,8 @@ class Game{
                     camera.position.y = displayHeight/2;
 
                     fill("black");
-                    textSize(25)
-                    text(player.name + "(You) : " + Math.round(player.distance / 2), players[index - 1].x - 650, displayHeight - 800);
+                    textSize(25);
+                    text(player.name + "(You) : " + Math.round(player.distance / 2), displayWidth/2 - 500, displayHeight - 800);
                 }
 
                 if(index !== player.index){
@@ -120,11 +118,19 @@ class Game{
                     textFont("verdana")
                     text(allPlayers[plr].name + " : " + Math.round(allPlayers[plr].distance / 2), players[index - 1].x - 650, displayHeight - 750)
                 }
+
+                if(keyIsDown(UP_ARROW) && players[index - 1].y > 575){
+                    players[index - 1].velocityY = -30;
+
+                }
+                players[index - 1].velocityY = players[index - 1].velocityY + 1;
             }
 
             if(player.index !== null){
                 for(var collide1 = 0; collide1 < flyingLandGroup.length; collide1 ++){
-                    flyingLandGroup[collide1].collide(player1);
+                    if(player1.isTouching(flyingLandGroup[collide1])){
+                        player1.collide(flyingLandGroup[collide1])
+                    }
                 }
 
                 for(var collide2 = 0; collide2 < monsterGroup.length; collide2 ++){
@@ -170,11 +176,7 @@ class Game{
                 player.distance -= 20;
                 player.update();
             }
-            if(keyIsDown(UP_ARROW)){
-                player.velocityY = -10;
-            }
-            player.velocityY = player.velocityY + 0.8;
-
+            
             drawSprites();
         }
     }

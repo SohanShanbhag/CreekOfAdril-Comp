@@ -1,14 +1,15 @@
-var canvas;
-var startImg, GroundImg;
-var database, playerCount, waitCount;
-var logo, logoImg, startPlayer1, startPlayer2, startMonster,startMonsterAni, player1Ani, player2Ani, groundImg, groundImgBack, trackImg, coinAni, flyingLandImg;
-var introMusic;
-var form, game, player;
-var allPlayers, leftE, rightE;
-var gameState=0;
-var player1, player2, players, invisi, coin, coinAni, flyingLand, monster, flyingMonster, flyingMonsterAni, bullet, bullet2, startMonsterAni2;
-var startFly;
+//Variables - Main, images and animations, sprites, states, groups, music;
+var canvas, database, game, player, form;
+var playerCount, allPlayers;
+var logo, player1, player2, startPlayer1, startPlayer2, startMonster, startFly, flyingLand, flyingMonster, monster, coin, invisi;
 var monsterGroup, flyingMonsterGroup, flyingLandGroup;
+var gameState = 0, players;
+var logoImg, player1Ani, player2Ani, groundImg, trackImg, coinAni, flyingMonsterAni, flyingLandImg, startMonsterAni;
+var bullet, bullet2;
+var introMusic;
+
+var player1Score = 0;
+var player2Score = 0;
 
 function preload(){
   startImg = loadImage("images/startImg.png");
@@ -18,7 +19,6 @@ function preload(){
   groundImg = loadImage("images/GroundImg2.png");
   trackImg = loadImage("images/track.jpg");
   floorImg = loadImage("images/FloorImg.png");
-  // startImg2 = loadImage("images/startImg2.png");
   coinAni = loadAnimation("images/CoinA.png", "images/CoinB.png");
   groundImgBack = loadImage("images/GroundImg.png");
   coinAni = loadAnimation("images/CoinA.png", "images/CoinB.png");
@@ -98,19 +98,26 @@ function draw(){
 
   if(gameState === 1){
     game.play();
+    //   fill("black");
+    // textSize(25)
+    // text("Score : ", 200, 50);
+    // text("Hello ", displayWidth - 300, 50)
     introMusic.stop();
   }
 }
 
-function bounceOff(arg1, arg2){
-  if (arg1.x - arg2.x < arg2.width/2 + arg1.width/2
-      && arg2.x - arg1.x < arg2.width/2 + arg1.width/2) {
-        arg1.velocityX = arg1.velocityX * (-1);
-        arg2.velocityX = arg2.velocityX * (-1);
-  }
-  if (arg1.y - arg2.y < arg2.height/2 + arg1.height/2
-    && arg2.y - arg1.y < arg2.height/2 + arg1.height/2){
-      arg1.velocityY = arg1.velocityY * (-1);
-      arg2.velocityY = arg2.velocityY * (-1);
-  }
+function getScore(){
+
 }
+
+// var canvas;
+// var startImg, GroundImg;
+// var database, playerCount, waitCount;
+// var logo, logoImg, startPlayer1, startPlayer2, startMonster,startMonsterAni, player1Ani, player2Ani, groundImg, groundImgBack, trackImg, coinAni, flyingLandImg;
+// var introMusic;
+// var form, game, player;
+// var allPlayers, leftE, rightE;
+// var gameState=0;
+// var player1, player2, players, invisi, coin, coinAni, flyingLand, monster, flyingMonster, flyingMonsterAni, bullet, bullet2, startMonsterAni2;
+// var startFly;
+// var monsterGroup, flyingMonsterGroup, flyingLandGroup;
