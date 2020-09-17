@@ -16,7 +16,7 @@ class Form{
 
         this.startButton = createButton("Start Game");
 
-        this.tellUser = createElement("h2");
+        this.instruct4 = createElement("h3");
 
         this.resetButton = createButton("Reset")
     }
@@ -28,6 +28,7 @@ class Form{
         this.instruct1.hide();
         this.instruct2.hide();
         this.instruct3.hide();
+        this.instruct4.hide();
         this.wait.hide();
     }
 
@@ -42,7 +43,11 @@ class Form{
         this.input;
 
         this.startButton.hide();
-        this.tellUser.hide();
+
+        this.instruct4.html("Press the Space Key to shoot bullets at the monsters. Press the Left & Right Arrow to move your player.");
+        this.instruct4.style("color", "white");
+        this.instruct4.style("font-family", "verdana");
+        this.instruct4.position(displayWidth/2 - 500, displayHeight/2 + 100)
 
         this.enterButton.position(displayWidth/2 - 60, displayHeight/2 - 100);
         this.enterButton.style("width", "220px");
@@ -51,19 +56,19 @@ class Form{
         this.enterButton.style("font-weight", "bold");
 
         this.instruct1.html("Enter your name in the box below");
-        this.instruct1.position(displayWidth/2 - 130, displayHeight/2 - 200);
+        this.instruct1.position(displayWidth/2 - 130, displayHeight/2 - 300);
         this.instruct1.style("color", "white");
         this.instruct1.style("font-family", "verdana");
 
         this.instruct2.html("Call a friend of yours and play this fun game!");
         this.instruct2.style("color", "white");
         this.instruct2.style("font-family", "verdana");
-        this.instruct2.position(displayWidth/2 - 200, displayHeight/2 + 100)
+        this.instruct2.position(displayWidth/2 - 200, displayHeight/2 + 0)
 
-        this.instruct3.html("•Press the Space Bar to jump and avoid the moving monsters. Collect coins and reach the finish line. Are you in it to win it?")
+        this.instruct3.html("•Press the Up Arrow to jump and avoid the moving monsters. Collect coins and reach the finish line. Are you in it to win it?")
         this.instruct3.style("color", "white");
         this.instruct3.style("font-family", "verdana");
-        this.instruct3.position(displayWidth/2 - 600, displayHeight/2 + 150);
+        this.instruct3.position(displayWidth/2 - 600, displayHeight/2 + 50);
 
         this.resetButton.style("background", "cyan");
         this.resetButton.style("font-family", "verdana");
@@ -95,7 +100,8 @@ class Form{
             game.update(0);
             player.updateCount(0);
             Player.updatePlayersAtEnd(0);
-            database.ref("players/").remove();
-        })
+            player.lives = 5;
+            database.ref("players/").remove();  
+        });
     }
 }

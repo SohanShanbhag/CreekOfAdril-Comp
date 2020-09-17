@@ -1,12 +1,12 @@
 //Variables - Main, images and animations, sprites, states, groups, music;
 var canvas, database, game, player, form;
 var playerCount, allPlayers;
-var logo, player1, player2, startPlayer1, startPlayer2, startMonster, startFly, flyingLand, flyingMonster, monster, coin, invisi;
-var monsterGroup, flyingMonsterGroup, flyingLandGroup;
+var logo, player1, player2, startPlayer1, startPlayer2, startMonster, startFly, flyingLand, flyingMonster, monster, coin, coin2, invisi, castle;
+var monsterGroup, flyingMonsterGroup, flyingLandGroup, coinGroup, bulletGroup1, bulletGroup2;
 var gameState = 0, players;
-var logoImg, player1Ani, player2Ani, groundImg, trackImg, coinAni, flyingMonsterAni, flyingLandImg, startMonsterAni;
+var logoImg, player1Ani, player2Ani, groundImg, trackImg, coinAni, flyingMonsterAni, flyingLandImg, startMonsterAni, castleImg, fireBall;
 var bullet, bullet2;
-var introMusic;
+var introMusic, jumpSound, loseSound, coinSound, winSound, hitSound, landSound;
 
 var player1Score = 0;
 var player2Score = 0;
@@ -25,13 +25,24 @@ function preload(){
   flyingLandImg = loadImage("images/FlyingLand.png");
   startMonsterAni = loadAnimation("images/Monster1.png", "images/Monster2.png");
   flyingMonsterAni = loadAnimation("images/FlyingMonster1.png", "images/FlyingMonster2.png");
-  startMonsterAni2 = loadAnimation("images/StartMonster1.png", "images/StartMonster2.png")
+  startMonsterAni2 = loadAnimation("images/StartMonster1.png", "images/StartMonster2.png");
+  castleImg = loadImage("images/Castle.png");
+  fireBall = loadImage("images/FireBall.png");
 
   introMusic = loadSound("Music/IntroMusic.mp3");
+  jumpSound = loadSound("Music/Jump.mp3");
+  loseSound = loadSound("Music/Lose.flac");
+  coinSound = loadSound("Music/Coin.wav");
+  winSound = loadSound("Music/Win.wav");
+  hitSound = loadSound("Music/Hit.flac");
+  landSound = loadSound("Music/Land.wav");
 
   monsterGroup = new Group();
   flyingLandGroup = new Group();
   flyingMonsterGroup = new Group();
+  coinGroup = new Group();
+  bulletGroup1 = new Group();
+  bulletGroup2 = new Group();
 }
 
 function setup(){
@@ -98,12 +109,10 @@ function draw(){
 
   if(gameState === 1){
     game.play();
-    //   fill("black");
-    // textSize(25)
-    // text("Score : ", 200, 50);
-    // text("Hello ", displayWidth - 300, 50)
     introMusic.stop();
   }
+
+  console.log(gameState);
 }
 
 function getScore(){

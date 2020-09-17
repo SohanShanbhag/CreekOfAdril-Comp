@@ -2,10 +2,12 @@ class Player{
     constructor(){
         this.index = null;
         this.distance = 0;
-        this.distanceY = 1;
-        this.score = 0;
+        this.distanceY = 0;
+        this.lives = 10;
+        this.coins = 0;
         this.name = null;
         this.rank = null;
+        this.rating = 0;
     }
 
     getPlayerCount(){
@@ -26,7 +28,9 @@ class Player{
         database.ref(playerIndex).set({
             name: this.name,
             distance: this.distance,
-            score: this.score
+            lives: this.lives,
+            coins: this.coins,
+            distanceY: this.distanceY
         })
     }
 
@@ -46,7 +50,7 @@ class Player{
 
     static updatePlayersAtEnd(rank){
         database.ref("/").update({
-            playersAtEnd: rank
+            PlayersAtEnd: rank
         })
     }
 }
