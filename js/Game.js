@@ -117,6 +117,7 @@ class Game{
                 image(groundImg, 0, displayHeight - 150, displayWidth*17, 250);
 
                 x = displayWidth + allPlayers[plr].distance;
+                y = displayHeight - allPlayers[plr].distanceY;
                 players[index - 1].x = x;
 
                 if(index === player.index){
