@@ -35,7 +35,7 @@ class Game{
         player1.addAnimation("PlayerNew", player1Ani);
         player2.addAnimation("PlayerNew2", player2Ani);
 
-        invisi = createSprite(displayWidth/2 + 7300, displayHeight - 50, 50000, 100);
+        invisi = createSprite(displayWidth/ 2 + 7300, displayHeight - 50, 50000, 100);
         invisi.visible = false;
 
         players = [player1, player2];
@@ -107,7 +107,7 @@ class Game{
         if(allPlayers !== undefined){
             var index = 0;
             var x = 50;
-            var y;
+            var y = 400;
 
             background("cyan");
 
@@ -117,7 +117,9 @@ class Game{
                 image(groundImg, 0, displayHeight - 150, displayWidth*17, 250);
 
                 x = displayWidth + allPlayers[plr].distance;
+                y = displayHeight - allPlayers[plr].distanceY;
                 players[index - 1].x = x;
+                // players[index - 1].y = y;
 
                 if(index === player.index){
                     camera.position.x = players[index - 1].x;
@@ -138,28 +140,42 @@ class Game{
                     text("Lives x " + allPlayers[plr].lives + " | Coins x " + allPlayers[plr].coins, players[index - 1].x - 100, players[index - 1].y - 150);
                 }
 
-                if(index === player.index){
-                    if(keyIsDown(UP_ARROW) && players[index - 1].y > 663){
-                        players[index - 1].velocityY = -30;
-                        player.distanceY = players[index - 1].y;
-                        jumpSound.play();
-                        player.update();
-                    }
-                    players[index - 1].velocityY = players[index - 1].velocityY + 1;
+                
 
-                    if(keyDown("space")){
-                        bullet2 = createSprite(players[index - 1].x, players[index - 1].y, 30, 10);
-                        bullet2.shapeColor = "red";
-                        bullet2.velocityX = 10;
+                
+            }
 
-                        bullet2.addImage(fireBall);
-                        bullet2.scale = 0.1
-
-                        bullet2.lifetime = 50
-
-                        bulletGroup2.add(bullet2);
-                    }
+            console.log(player1.y);
+            if(keyIsDown(UP_ARROW) && player1.y > 663){
+                if(player.index === 1){
+                    player1.velocityY = -30
                 }
+                
+                jumpSound.play();
+                player.update();
+            }
+            player1.velocityY = player1.velocityY + 1;
+                
+            if(keyIsDown(UP_ARROW) && player1.y > 663){
+                if(player.index === 2){
+                    player2.velocityY = -30
+                }
+                player2.velocityY = player2.velocityY + 1;
+                jumpSound.play();
+                player.update();
+            }
+
+            if(keyDown("space")){
+                bullet2 = createSprite(players[index].x, players[index].y, 30, 10);
+                bullet2.shapeColor = "red";
+                bullet2.velocityX = 10;
+
+                bullet2.addImage(fireBall);
+                bullet2.scale = 0.1
+
+                bullet2.lifetime = 50
+
+                bulletGroup2.add(bullet2);
             }
 
             if(player.index !== null){
@@ -252,13 +268,20 @@ class Game{
                 }
             }
             
-            if(keyIsDown(RIGHT_ARROW)){
+            if(keyIsDown(RIGHT_ARROW) && player.distance /2 < 11950){
                 player.distance += 35;
                 player.update();
             }
             if(keyIsDown(LEFT_ARROW) && player.distance > -760){
                 player.distance -= 20;
                 player.update();
+            }
+
+            if(player.lives <= 0){
+                Swal.fire({
+                    title: "You Lose :(",
+                    text: "Oh No. You lost all your lives. Press the reset button and refresh the browser[ Both you and your friend ], to play again",
+                })
             }
 
             if(Math.round(player.distance / 2) > 11950 && player.lives > 0){
