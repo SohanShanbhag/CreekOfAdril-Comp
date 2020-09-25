@@ -140,7 +140,7 @@ class Game{
                 }
 
                 if(index === player.index){
-                    if(keyIsDown(UP_ARROW) && players[index - 1].y > 663){
+                    if(keyIsDown(UP_ARROW)){
                         players[index - 1].velocityY = -30;
                         player.distanceY = players[index - 1].y;
                         jumpSound.play();
