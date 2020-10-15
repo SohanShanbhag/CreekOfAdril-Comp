@@ -23,6 +23,10 @@ class Player{
         })
     }
 
+    // getPlayersLost(){
+    //     var playerLostRef = database.ref("players/")
+    // }
+
     update(){
         var playerIndex = "players/player" + this.index;
         database.ref(playerIndex).set({

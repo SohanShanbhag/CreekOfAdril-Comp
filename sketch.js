@@ -4,7 +4,7 @@ var playerCount, allPlayers;
 var logo, player1, player2, startPlayer1, startPlayer2, startMonster, startFly, flyingLand, flyingMonster, monster, coin, coin2, invisi, castle;
 var monsterGroup, flyingMonsterGroup, flyingLandGroup, coinGroup, bulletGroup1, bulletGroup2;
 var gameState = 0, players;
-var logoImg, player1Ani, player2Ani, groundImg, trackImg, coinAni, flyingMonsterAni, flyingLandImg, startMonsterAni, castleImg, fireBall;
+var logoImg, player1Ani, player2Ani, groundImg, trackImg, coinAni, flyingMonsterAni, flyingLandImg, startMonsterAni, castleImg, fireBall, overImg;
 var bullet, bullet2;
 var introMusic, jumpSound, loseSound, coinSound, winSound, hitSound, landSound;
 
@@ -28,6 +28,7 @@ function preload(){
   startMonsterAni2 = loadAnimation("images/StartMonster1.png", "images/StartMonster2.png");
   castleImg = loadImage("images/Castle.png");
   fireBall = loadImage("images/FireBall.png");
+  overImg = loadImage("images/GameOver.jpg")
 
   introMusic = loadSound("Music/IntroMusic.mp3");
   jumpSound = loadSound("Music/Jump.mp3");
@@ -112,21 +113,7 @@ function draw(){
     introMusic.stop();
   }
 
-  console.log(gameState);
+  // if(playerCount > 2){
+  //   game.wait();
+  // }
 }
-
-function getScore(){
-
-}
-
-// var canvas;
-// var startImg, GroundImg;
-// var database, playerCount, waitCount;
-// var logo, logoImg, startPlayer1, startPlayer2, startMonster,startMonsterAni, player1Ani, player2Ani, groundImg, groundImgBack, trackImg, coinAni, flyingLandImg;
-// var introMusic;
-// var form, game, player;
-// var allPlayers, leftE, rightE;
-// var gameState=0;
-// var player1, player2, players, invisi, coin, coinAni, flyingLand, monster, flyingMonster, flyingMonsterAni, bullet, bullet2, startMonsterAni2;
-// var startFly;
-// var monsterGroup, flyingMonsterGroup, flyingLandGroup;

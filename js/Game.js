@@ -107,7 +107,7 @@ class Game{
         if(allPlayers !== undefined){
             var index = 0;
             var x = 50;
-            var y = 400;
+            var y = 665;
 
             background("cyan");
 
@@ -116,10 +116,11 @@ class Game{
 
                 image(groundImg, 0, displayHeight - 150, displayWidth*17, 250);
 
+                y=y+1;
                 x = displayWidth + allPlayers[plr].distance;
-                y = displayHeight - allPlayers[plr].distanceY;
+                //y = displayHeight - allPlayers[plr].distanceY;
                 players[index - 1].x = x;
-                // players[index - 1].y = y;
+                //players[index - 1].y = y;
 
                 if(index === player.index){
                     camera.position.x = players[index - 1].x;
@@ -138,45 +139,30 @@ class Game{
                     textStyle(BOLD);
                     text(allPlayers[plr].name + " : " + Math.round(allPlayers[plr].distance / 2), players[index - 1].x - 50, players[index - 1].y - 212);
                     text("Lives x " + allPlayers[plr].lives + " | Coins x " + allPlayers[plr].coins, players[index - 1].x - 100, players[index - 1].y - 150);
+                }  
+                if(index === player.index){
+                    if(keyDown("space")){
+                        bullet2 = createSprite(players[index - 1].x, players[index-  1].y, 30, 10);
+                        bullet2.shapeColor = "red";
+                        bullet2.velocityX = 10;
+        
+                        bullet2.addImage(fireBall);
+                        bullet2.scale = 0.1
+        
+                        bullet2.lifetime = 50
+        
+                        bulletGroup2.add(bullet2);
+                    }
+
+                    // if(keyIsDown(UP_ARROW) && players[index-1].y > 663){
+                    //     players[index-1].velocityY = -30;
+                    // }
+                    // players[index-1].velocityY += 1;
+                    // player.distanceY = players[index-1].y
                 }
-
-                
-
-                
             }
 
-            console.log(player1.y);
-            if(keyIsDown(UP_ARROW) && player1.y > 663){
-                if(player.index === 1){
-                    player1.velocityY = -30
-                }
-                
-                jumpSound.play();
-                player.update();
-            }
-            player1.velocityY = player1.velocityY + 1;
-                
-            if(keyIsDown(UP_ARROW) && player1.y > 663){
-                if(player.index === 2){
-                    player2.velocityY = -30
-                }
-                player2.velocityY = player2.velocityY + 1;
-                jumpSound.play();
-                player.update();
-            }
-
-            if(keyDown("space")){
-                bullet2 = createSprite(players[index].x, players[index].y, 30, 10);
-                bullet2.shapeColor = "red";
-                bullet2.velocityX = 10;
-
-                bullet2.addImage(fireBall);
-                bullet2.scale = 0.1
-
-                bullet2.lifetime = 50
-
-                bulletGroup2.add(bullet2);
-            }
+            
 
             if(player.index !== null){
                 for(var collide1 = 0; collide1 < flyingLandGroup.length; collide1 ++){
@@ -267,6 +253,8 @@ class Game{
                     }
                 }
             }
+
+            console.log(player.index)
             
             if(keyIsDown(RIGHT_ARROW) && player.distance /2 < 11950){
                 player.distance += 35;
@@ -277,11 +265,27 @@ class Game{
                 player.update();
             }
 
-            if(player.lives <= 0){
-                Swal.fire({
-                    title: "You Lose :(",
-                    text: "Oh No. You lost all your lives. Press the reset button and refresh the browser[ Both you and your friend ], to play again",
-                })
+            if(keyIsDown(UP_ARROW) && player.index === 1 && player1.y > 663){
+                player1.velocityY = -30;
+
+            }
+            player1.velocityY += 1;
+
+            if(keyIsDown(UP_ARROW) && player.index === 2 && player2.y > 663){
+                player2.velocityY = -30;
+
+            }
+            player2.velocityY += 1;
+
+            if(player.lives === 0){
+                gameState = 3;
+                if(player.index === 1){
+                    background(overImg);
+                    Swal.fire({
+                        title: "You Lose :(",
+                        text: "Oh No. You lost all your lives. Press the reset button and refresh the browser[ Both you and your friend ], to play again",
+                    });
+                }
             }
 
             if(Math.round(player.distance / 2) > 11950 && player.lives > 0){
@@ -289,45 +293,35 @@ class Game{
                 player.rank += 1;
                 Player.updatePlayersAtEnd(player.rank);
                 if(player.rank === 1){
-                    swal({
+                    Swal.fire({
                         title: "Awesome! Rank " + player.rank,
                         text: "YOU WON! You reached the castle first! Well Played " + player.name,
                         icon: "success",
-                        button: {
-                            text: "Great"
-                        },
-                        className: "red-bg",
-
-                        content:{
-                            element: "input",
-                            attributes: {
-                                placeholder: "How much would you rate this game from 1 to 10?",
-                            }
-                        }
+                        confirmButtonText: "Great",
                     })
                 }
 
                 if(player.rank === 2){
-                    swal({
+                    Swal.fire({
                         title: "Awesome! Rank " + player.rank,
                         text: "You came Second! You reached the castle! You can win next time " + player.name,
                         icon: "success",
-                        button: {
-                            text: "Great"
-                        },
+                        confirmButtonText: "Great",
                         className: "red-bg",
 
-                        content:{
-                            element: "input",
-                            attributes: {
-                                placeholder: "How much would you rate this game from 1 to 10?",
-                            }
-                        }
                     })
                 }
             }
             
             drawSprites();
         }
+    }
+
+    end(){
+
+    }
+
+    wait(){
+        
     }
 }
